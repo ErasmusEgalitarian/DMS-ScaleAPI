@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DevGUIApp.MainWindow"
+        Title="DevGUIApp">
+	<StackPanel>
+		<!--Add "Scale Manager" title to the window -->
+		<TextBlock Name="TitleTextBlock" 
+				   Text="Scale Manager" 
+				   FontSize="24" 
+				   HorizontalAlignment="Center" 
+				   VerticalAlignment="Top" 
+				   Margin="0,10,0,0"/>
+		
+		<!--Add "Welcome to DevGUIApp" text to the window -->
+		<TextBlock Name="WelcomeTextBlock" 
+				   Text="Welcome to Scale Manager - Please enter your login credentials" 
+				   FontSize="16" 
+				   HorizontalAlignment="Center" 
+				   VerticalAlignment="Top" 
+				   Margin="0,50,0,0"/>
+
+		<Grid Name="LoginGrid"
+			  HorizontalAlignment="Center"
+			  VerticalAlignment="Top"
+			  Margin="0,100,0,0">
+			<!--Add "Username" label to the window -->
+			<TextBlock Name="UsernameLabel"
+					   Text="Username:"
+					   FontSize="14"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Top"/>
+
+			<!--Add "Password" label to the window -->
+			<TextBlock Name="PasswordLabel"
+					   Text="Password:"
+					   FontSize="14"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Top"
+					   Margin="0,30,0,0"/>
+
+			<!--Add "Username" text box to the window -->
+			<TextBox Name="UsernameTextBox"
+					 Width="200"
+					 Height="30"
+					 HorizontalAlignment="Left"
+					 VerticalAlignment="Top"
+					 Margin="80,0,0,0"/>
+
+			<!--Add "Password" text box to the window -->
+			<PasswordBox Name="PasswordTextBox"
+						 Width="200"
+						 Height="30"
+						 HorizontalAlignment="Left"
+						 VerticalAlignment="Top"
+						 Margin="80,30,0,0"/>
+			</Grid>
+			
+		
+		<!--Add "LOGIN" button to the window -->
+		<Button Name="LoginButton" 
+				Content="LOGIN" 
+				HorizontalAlignment="Center" 
+				VerticalAlignment="Center" 
+				Width="100" 
+				Height="30" 
+				Margin="10,200,0,0"/>
+		
+		<!--Add "Username" and "Password" text boxes to the window -->
+	
+	</StackPanel>
+	
+</Window>
