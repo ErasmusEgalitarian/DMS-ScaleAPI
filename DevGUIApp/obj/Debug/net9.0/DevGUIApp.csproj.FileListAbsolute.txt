@@ -64,3 +64,7 @@ C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\refint\Avalonia\DevG
 C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\DevGUIApp.csproj.Up2Date
 C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\DevGUIApp.genruntimeconfig.cache
 C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\ref\DevGUIApp.dll
+C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\DevGUIApp.sourcelink.json
+C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\DevGUIApp.dll
+C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\refint\DevGUIApp.dll
+C:\Users\Carl\Desktop\P2\Dev GUI\DevGUIApp\obj\Debug\net9.0\DevGUIApp.pdb

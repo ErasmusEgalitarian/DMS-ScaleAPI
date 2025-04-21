@@ -14,5 +14,9 @@ public partial class MainWindow : Window
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
         Debug.WriteLine("Button clicked!");
+
+        LoginText.Text = "Error, username or password incorrect.";
+
+        LoginButton.Content = "Clicked!";
     }
 }

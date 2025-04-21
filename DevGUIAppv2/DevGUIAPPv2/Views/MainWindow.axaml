@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DevGUIAPPv2.Views.MainWindow"
-		x:DataType="vm:MainViewModel">
+		x:DataType="vm:MainViewModel"
+		Title="DevGUI"
+		Icon="C:/Users/Carl/Desktop/P2/Dev GUI/DevGUIAppv2/DevGUIAPPv2/Assets/avalonia-logo.ico">
 
 	<Design.DataContext>
 	<!-- This only sets the DataContext for the previewer in an IDE,
@@ -23,6 +25,13 @@
 					Margin="20"
 					FontSize="24"/>
 			</Border>
+
+			<TextBlock Name="LoginText" 
+					Text="Please login with your admin credentials"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Margin="20"
+					FontSize="16"/>
 
 			<Grid ShowGridLines="false" 
 				  HorizontalAlignment="Center" 

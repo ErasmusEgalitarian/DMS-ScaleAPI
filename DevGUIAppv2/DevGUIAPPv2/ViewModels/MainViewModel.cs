@@ -2,5 +2,5 @@
 
 public class MainViewModel : ViewModelBase
 {
-    public string Greeting => "Welcome to Scale Manager!";
+    public string Greeting => "Scale Manager";
 }
