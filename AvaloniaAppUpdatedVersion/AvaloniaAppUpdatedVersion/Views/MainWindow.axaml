@@ -8,5 +8,5 @@
         x:Class="AvaloniaAppUpdatedVersion.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaAppUpdatedVersion">
-        <views:SidebarMenuView />
+        <views:LoginPageView />
 </Window>

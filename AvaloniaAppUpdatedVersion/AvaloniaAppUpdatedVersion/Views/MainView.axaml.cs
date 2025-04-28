@@ -11,12 +11,4 @@ public partial class MainView : UserControl
         InitializeComponent();
     }
 
-   // private void Button_OnClick(object? sender, RoutedEventArgs e)
-    //{
-     //   Debug.WriteLine("Button clicked!");
-
-      //  LoginText.Text = "Error, username or password incorrect.";
-
-      //  LoginButton.Content = "Clicked!";
-   // }
 }

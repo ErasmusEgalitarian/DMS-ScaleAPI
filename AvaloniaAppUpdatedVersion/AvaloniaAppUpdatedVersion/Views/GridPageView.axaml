@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaAppUpdatedVersion.Views.GridPageView"
+			 x:DataType="vm:MainViewModel">
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto"
+					Background="#0A1843">
+		<StackPanel Margin="20" Spacing="10">
+			<TextBlock Text="Grid Page" FontSize="24" FontWeight="Bold" />
+
+			<TextBlock Text="This is a sample page demonstrating the use of a Grid layout." FontSize="16" />
+
+			<Grid Name="MainGrid"
+				ShowGridLines="True"
+				  Background="#070B2A"
+				  RowDefinitions="*, *"
+				  ColumnDefinitions="*, *">
+				
+				<TextBlock Grid.Column="0" Grid.Row="0" Text="Column 1, Row 1" />
+				<TextBlock Grid.Column="1" Grid.Row="0" Text="Column 2, Row 1" />
+				<TextBlock Grid.Column="0" Grid.Row="1" Text="Column 1, Row 2" />
+				<TextBlock Grid.Column="1" Grid.Row="1" Text="Column 2, Row 2" />
+				</Grid>	
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

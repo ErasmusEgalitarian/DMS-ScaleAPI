@@ -10,18 +10,6 @@ namespace AvaloniaAppUpdatedVersion.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    public string Greeting => "Scale Manager";
-
-
-    [ObservableProperty]
-    private string _loginText = "Please login with your username and password";
-
-    [RelayCommand]
-    public void ButtonOnClick()
-    {
-        LoginText = "Error, username or password incorrect.";
-    }
-
     [ObservableProperty]
     private bool _IsPaneOpen = true;
 
@@ -44,6 +32,7 @@ public partial class MainViewModel : ViewModelBase
         new ListItemTemplate(typeof(HomePageViewModel), "HomeRegular"),
         new ListItemTemplate(typeof(StatusMonitorPageViewModel), "NetworkCheckRegular"),
         new ListItemTemplate(typeof(UploadFirmwarePageViewModel), "ArrowUploadRegular"),
+        new ListItemTemplate(typeof(GridPageViewModel), "GridRegular"),
     };
 
     [RelayCommand]
