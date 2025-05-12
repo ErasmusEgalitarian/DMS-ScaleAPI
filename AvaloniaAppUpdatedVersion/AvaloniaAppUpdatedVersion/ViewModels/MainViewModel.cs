@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using AvaloniaAppUpdatedVersion.Templates;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels;
 
@@ -33,6 +34,14 @@ public partial class MainViewModel : ViewModelBase
         new ListItemTemplate(typeof(StatusMonitorPageViewModel), "NetworkCheckRegular"),
         new ListItemTemplate(typeof(UploadFirmwarePageViewModel), "ArrowUploadRegular"),
         new ListItemTemplate(typeof(GridPageViewModel), "GridRegular"),
+    };
+
+    public ObservableCollection<IconItemGetter> Icons { get; } = new()
+    {
+        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 1"),
+        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 2"),
+        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 3"),
+        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 4"),
     };
 
     [RelayCommand]
@@ -64,3 +73,4 @@ public class ListItemTemplate
     public Type ModelType { get; }
     public StreamGeometry ItemIcon { get; }
 }
+

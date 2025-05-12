@@ -11,21 +11,36 @@
                   HorizontalScrollBarVisibility="Auto"
 					Background="#0A1843">
 		<StackPanel Margin="20" Spacing="10">
-			<TextBlock Text="Grid Page" FontSize="24" FontWeight="Bold" />
+			<TextBlock Text="Scale Overview" FontSize="24" FontWeight="Bold" TextAlignment="Center" />
 
-			<TextBlock Text="This is a sample page demonstrating the use of a Grid layout." FontSize="16" />
+			<TextBlock Text="Status overview of all scales" FontSize="16" TextAlignment="Center" />
 
-			<Grid Name="MainGrid"
-				ShowGridLines="True"
+			<Grid Name="MainGrid" 
+				  ShowGridLines="True"
+				  Margin="80 20 80 20"
 				  Background="#070B2A"
-				  RowDefinitions="*, *"
-				  ColumnDefinitions="*, *">
+				  RowDefinitions="150, 150"
+				  ColumnDefinitions="300, 300">
+
+				<Rectangle Grid.Column="0" Grid.Row="0" Fill="Green" Width="250" Height="110"/>
+				<Rectangle Grid.Column="1" Grid.Row="0" Fill="Green" Width="250" Height="110"/>
+				<Rectangle Grid.Column="0" Grid.Row="1" Fill="Green" Width="250" Height="110"/>
+				<Rectangle Grid.Column="1" Grid.Row="1" Fill="Green" Width="250" Height="110"/>
+
+				<TextBlock Grid.Column="0" Grid.Row="0" Text="Scale 1" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+				<TextBlock Grid.Column="1" Grid.Row="0" Text="Scale 2" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+				<TextBlock Grid.Column="0" Grid.Row="1" Text="Scale 3" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+				<TextBlock Grid.Column="1" Grid.Row="1" Text="Scale 4" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
+
+				<PathIcon Grid.Column="0" Grid.Row="0" Data="{Binding Icon}" Width="100" Height="50" />
+
+				<Button Grid.Column="0" Grid.Row="0" Width="250" Height="110" HorizontalAlignment="Center"/>
+				<Button Grid.Column="1" Grid.Row="0" Width="250" Height="110" HorizontalAlignment="Center"/>
+				<Button Grid.Column="0" Grid.Row="1" Width="250" Height="110" HorizontalAlignment="Center"/>
+				<Button Grid.Column="1" Grid.Row="1" Width="250" Height="110" HorizontalAlignment="Center"/>
 				
-				<TextBlock Grid.Column="0" Grid.Row="0" Text="Column 1, Row 1" />
-				<TextBlock Grid.Column="1" Grid.Row="0" Text="Column 2, Row 1" />
-				<TextBlock Grid.Column="0" Grid.Row="1" Text="Column 1, Row 2" />
-				<TextBlock Grid.Column="1" Grid.Row="1" Text="Column 2, Row 2" />
 				</Grid>	
+			
 		</StackPanel>
 	</ScrollViewer>
 </UserControl>
