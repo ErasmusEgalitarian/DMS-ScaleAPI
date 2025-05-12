@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels
 {
-    public partial class GridPageViewModel : ViewModelBase
+    public partial class Scale1PageViewModel : ViewModelBase
     {
     }
 }

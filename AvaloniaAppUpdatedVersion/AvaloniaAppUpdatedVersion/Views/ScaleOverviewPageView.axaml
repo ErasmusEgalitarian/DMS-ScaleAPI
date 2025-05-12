@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaAppUpdatedVersion.Views.GridPageView"
-			 x:DataType="vm:MainViewModel">
+             x:Class="AvaloniaAppUpdatedVersion.Views.ScaleOverviewPageView"
+			 x:DataType="vm:ScaleOverviewPageViewModel">
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto"
@@ -18,7 +18,7 @@
 			<Grid Name="MainGrid" 
 				  ShowGridLines="False"
 				  Margin="80 20 80 20"
-				  Background="#070B2A"
+				  Background="#0A1843"
 				  RowDefinitions="150, 150"
 				  ColumnDefinitions="300, 300">
 
@@ -32,15 +32,22 @@
 				<TextBlock Grid.Column="0" Grid.Row="1" Text="Scale 3" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
 				<TextBlock Grid.Column="1" Grid.Row="1" Text="Scale 4" FontWeight="Bold" FontSize="16" TextAlignment="Center"/>
 
-				<Button Grid.Column="0" Grid.Row="0" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30">
-					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>					</Button>
-				<Button Grid.Column="1" Grid.Row="0" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30">
+				<Button Grid.Column="0" Grid.Row="0" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30"
+						Command="{Binding ToScale1Command}">
 					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</Button>
-				<Button Grid.Column="0" Grid.Row="1" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30">
-					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>				</Button>
-				<Button Grid.Column="1" Grid.Row="1" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30">
-					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>				</Button>
+				<Button Grid.Column="1" Grid.Row="0" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30"
+						Command="{Binding ToScale1Command}">
+					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Button>
+				<Button Grid.Column="0" Grid.Row="1" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30"
+						Command="{Binding ToScale1Command}">
+					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Button>
+				<Button Grid.Column="1" Grid.Row="1" Width="150" Height="110" HorizontalAlignment="Center" CornerRadius="30"
+						Command="{Binding ToScale1Command}">
+					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>				
+				</Button>
 				
 				</Grid>	
 			

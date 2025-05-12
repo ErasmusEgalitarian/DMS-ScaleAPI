@@ -33,15 +33,7 @@ public partial class MainViewModel : ViewModelBase
         new ListItemTemplate(typeof(HomePageViewModel), "HomeRegular"),
         new ListItemTemplate(typeof(StatusMonitorPageViewModel), "NetworkCheckRegular"),
         new ListItemTemplate(typeof(UploadFirmwarePageViewModel), "ArrowUploadRegular"),
-        new ListItemTemplate(typeof(GridPageViewModel), "GridRegular"),
-    };
-
-    public ObservableCollection<IconItemGetter> Icons { get; } = new()
-    {
-        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 1"),
-        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 2"),
-        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 3"),
-        new IconItemGetter(typeof(GridPageViewModel), "ScalesRegular", "Scale 4"),
+        new ListItemTemplate(typeof(ScaleOverviewPageViewModel), "GridRegular"),
     };
 
     [RelayCommand]

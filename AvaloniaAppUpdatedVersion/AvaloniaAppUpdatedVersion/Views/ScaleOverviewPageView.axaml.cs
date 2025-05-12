@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaAppUpdatedVersion.Views;
 
-public partial class GridPageView : UserControl
+public partial class ScaleOverviewPageView : UserControl
 {
-    public GridPageView()
+    public ScaleOverviewPageView()
     {
         InitializeComponent();
     }

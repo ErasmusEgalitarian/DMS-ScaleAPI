@@ -30,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ScaleOverviewPageView.axaml.cs">
+      <DependentUpon>ScaleOverviewPageView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomePageView.axaml.cs">
       <DependentUpon>HomePageView.axaml</DependentUpon>
     </Compile>
