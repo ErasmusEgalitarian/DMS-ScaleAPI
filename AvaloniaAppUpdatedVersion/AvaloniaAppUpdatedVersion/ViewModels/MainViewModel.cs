@@ -6,6 +6,7 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaAppUpdatedVersion.Templates;
+using AvaloniaAppUpdatedVersion.Services;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels;
 
@@ -17,11 +18,15 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase _currentPage = new HomePageViewModel();
 
-    private readonly Scale1PageViewModel _scale1Page = new();
+    private readonly Scale1PageViewModel _scale1Page;
 
+    public MainViewModel(Scale1PageViewModel scale1Page)
+    {
+        _scale1Page = scale1Page;
+    }
 
     [RelayCommand]
-    public void ToScale1() => CurrentPage = _scale1Page;
+    private void ToScale1() => CurrentPage = _scale1Page;
 
     [ObservableProperty]
     private ListItemTemplate? _selectedItem;

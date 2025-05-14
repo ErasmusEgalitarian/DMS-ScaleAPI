@@ -5,15 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaAppUpdatedVersion.Templates;
+using AvaloniaAppUpdatedVersion.Services;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels
 {
     public partial class ScaleOverviewPageViewModel : ViewModelBase
     {
-
-        public ScaleOverviewPageViewModel()
-        {
-
-        }
     }
 }

@@ -4,6 +4,9 @@ using Avalonia.Markup.Xaml;
 
 using AvaloniaAppUpdatedVersion.ViewModels;
 using AvaloniaAppUpdatedVersion.Views;
+using AvaloniaAppUpdatedVersion.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 
 namespace AvaloniaAppUpdatedVersion;
 
@@ -16,18 +19,27 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+
+        var collection = new ServiceCollection();
+        collection.AddSingleton<MainViewModel>();
+        collection.AddSingleton<Scale1PageViewModel>();
+
+        var services = collection.BuildServiceProvider();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = services.GetRequiredService<MainViewModel>()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
+
             singleViewPlatform.MainView = new MainView
             {
-                DataContext = new MainViewModel()
+                DataContext = services.GetRequiredService<MainViewModel>()
             };
         }
 
