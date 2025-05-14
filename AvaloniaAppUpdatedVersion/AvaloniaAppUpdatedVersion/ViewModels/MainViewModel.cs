@@ -15,7 +15,13 @@ public partial class MainViewModel : ViewModelBase
     private bool _IsPaneOpen = true;
 
     [ObservableProperty]
-    public ViewModelBase _CurrentPage = new HomePageViewModel();
+    private ViewModelBase _currentPage = new HomePageViewModel();
+
+    private readonly Scale1PageViewModel _scale1Page = new();
+
+
+    [RelayCommand]
+    public void ToScale1() => CurrentPage = _scale1Page;
 
     [ObservableProperty]
     private ListItemTemplate? _selectedItem;
@@ -28,13 +34,13 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<ListItemTemplate> Items { get; } = new()
-    {
+    public ObservableCollection<ListItemTemplate> Items { get; } =
+    [
         new ListItemTemplate(typeof(HomePageViewModel), "HomeRegular"),
         new ListItemTemplate(typeof(StatusMonitorPageViewModel), "NetworkCheckRegular"),
         new ListItemTemplate(typeof(UploadFirmwarePageViewModel), "ArrowUploadRegular"),
         new ListItemTemplate(typeof(ScaleOverviewPageViewModel), "GridRegular"),
-    };
+    ];
 
     [RelayCommand]
     public void TriggerPaneCommand()

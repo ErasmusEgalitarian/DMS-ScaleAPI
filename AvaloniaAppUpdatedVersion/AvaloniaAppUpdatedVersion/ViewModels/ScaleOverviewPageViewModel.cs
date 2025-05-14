@@ -10,17 +10,10 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
 {
     public partial class ScaleOverviewPageViewModel : ViewModelBase
     {
-        private readonly MainViewModel _main;
 
         public ScaleOverviewPageViewModel()
         {
-          
-        }
 
-        [RelayCommand]
-        public void ToScale1()
-        {
-            _main.CurrentPage = new Scale1PageViewModel(); // Naviger evt. videre
         }
     }
 }

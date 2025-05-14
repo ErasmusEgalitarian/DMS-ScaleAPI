@@ -8,12 +8,16 @@ namespace AvaloniaAppUpdatedVersion.Templates
     // Ensure your ViewLocator implements the correct interface with the expected return type
     public class ViewLocator : IDataTemplate
     {
-        public bool SupportsRecycling => false;
+        public static bool SupportsRecycling => false;
 
-        public Control Build(object data)
+        public Control Build(object? data)
         {
-            var name = data.GetType().FullName.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
+
+            if (data is null)
+                return null;
+            
+            var viewName = data.GetType().FullName.Replace("ViewModel", "View", StringComparison.InvariantCulture);
+            var type = Type.GetType(viewName);
 
             if (type != null)
             {
@@ -21,11 +25,11 @@ namespace AvaloniaAppUpdatedVersion.Templates
             }
             else
             {
-                return new TextBlock { Text = "Not Found: " + name };
+                return new TextBlock { Text = "Not Found: " + viewName };
             }
         }
 
-        public bool Match(object data)
+        public bool Match(object? data)
         {
             return data is ViewModelBase;
         }
