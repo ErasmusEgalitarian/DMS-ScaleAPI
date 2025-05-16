@@ -9,6 +9,7 @@ using AvaloniaAppUpdatedVersion.Templates;
 using AvaloniaAppUpdatedVersion.Services;
 using AvaloniaAppUpdatedVersion.Data;
 using AvaloniaAppUpdatedVersion.Factories;
+using AvaloniaAppUpdatedVersion.Views;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels;
 
@@ -22,6 +23,15 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private PageViewModel _currentPage;
 
+    /// <summary>
+    /// Design-time constructor for design-time data
+    /// </summary>
+    public MainViewModel()
+    {
+        CurrentPage = new ScaleOverviewPageViewModel();
+    }
+    
+
     public MainViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;
@@ -34,6 +44,9 @@ public partial class MainViewModel : ViewModelBase
 
     [RelayCommand]
     private void ToHome() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Home);
+
+    [RelayCommand]
+    private void ToScaleOverview() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.ScaleOverview);
 
     [ObservableProperty]
     private ListItemTemplate? _selectedItem;  
