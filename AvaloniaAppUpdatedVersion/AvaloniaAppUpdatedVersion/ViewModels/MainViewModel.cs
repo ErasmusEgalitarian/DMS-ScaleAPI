@@ -7,35 +7,50 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaAppUpdatedVersion.Templates;
 using AvaloniaAppUpdatedVersion.Services;
+using AvaloniaAppUpdatedVersion.Data;
+using AvaloniaAppUpdatedVersion.Factories;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    private PageFactory _pageFactory;
+
     [ObservableProperty]
     private bool _IsPaneOpen = true;
 
     [ObservableProperty]
-    private ViewModelBase _currentPage = new HomePageViewModel();
+    private PageViewModel _currentPage;
 
-    private readonly Scale1PageViewModel _scale1Page;
-
-    public MainViewModel(Scale1PageViewModel scale1Page)
+    public MainViewModel(PageFactory pageFactory)
     {
-        _scale1Page = scale1Page;
+        _pageFactory = pageFactory;
+
+        ToHome();
     }
 
     [RelayCommand]
-    private void ToScale1() => CurrentPage = _scale1Page;
+    private void ToScale1() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Scale1);
+
+    [RelayCommand]
+    private void ToHome() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Home);
 
     [ObservableProperty]
-    private ListItemTemplate? _selectedItem;
+    private ListItemTemplate? _selectedItem;  
 
-    partial void OnSelectedItemChanged(ListItemTemplate? value)
+partial void OnSelectedItemChanged(ListItemTemplate? value)
     {
         if (value != null)
         {
-            CurrentPage = (ViewModelBase)Activator.CreateInstance(value.ModelType)!;
+            // Map the selected item's label to the corresponding ApplicationPageNames enum value
+            if (Enum.TryParse<ApplicationPageNames>(value.Label, out var pageName))
+            {
+                CurrentPage = _pageFactory.GetPageViewModel(pageName);
+            }
+            else
+            {
+                throw new ArgumentException($"No matching ApplicationPageNames value for label '{value.Label}'.");
+            }
         }
     }
 
