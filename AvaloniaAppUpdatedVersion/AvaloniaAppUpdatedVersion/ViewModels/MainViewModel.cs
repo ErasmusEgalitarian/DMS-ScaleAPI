@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
@@ -10,6 +11,9 @@ using AvaloniaAppUpdatedVersion.Services;
 using AvaloniaAppUpdatedVersion.Data;
 using AvaloniaAppUpdatedVersion.Factories;
 using AvaloniaAppUpdatedVersion.Views;
+using System.Threading.Tasks;
+using Avalonia.Controls.ApplicationLifetimes;
+using System.Diagnostics;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels;
 
@@ -30,13 +34,25 @@ public partial class MainViewModel : ViewModelBase
     {
         CurrentPage = new ScaleOverviewPageViewModel();
     }
-    
+
 
     public MainViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;
 
+        Initialize();
+        Debug.WriteLine("Tis");
+        Thread.Sleep(10000);
+
         ToHome();
+
+        
+    }
+
+    private async void Initialize()
+    {
+        var service = new APIService();
+        string token = await service.Authenticate("wasteworker", "verysecretpassword");
     }
 
     [RelayCommand]

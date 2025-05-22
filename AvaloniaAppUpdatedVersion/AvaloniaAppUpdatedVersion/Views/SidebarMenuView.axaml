@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
-			 Width="1920" Height="1080"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
+			 Width="1400" Height="800"
 			 MinWidth="1400" MinHeight="800"
              x:Class="AvaloniaAppUpdatedVersion.Views.SidebarMenuView"
 	         x:DataType="vm:MainViewModel">
