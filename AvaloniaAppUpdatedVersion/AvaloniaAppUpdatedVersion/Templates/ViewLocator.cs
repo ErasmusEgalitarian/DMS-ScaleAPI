@@ -12,21 +12,19 @@ namespace AvaloniaAppUpdatedVersion.Templates
 
         public Control Build(object? data)
         {
-
             if (data is null)
-                return null;
-            
-            var viewName = data.GetType().FullName.Replace("ViewModel", "View", StringComparison.InvariantCulture);
+                return new TextBlock { Text = "Null view model" };
+
+            var viewName = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.InvariantCulture);
             var type = Type.GetType(viewName);
 
-            if (type != null)
+            if (type is { } && Activator.CreateInstance(type) is Control view)
             {
-                return (Control)Activator.CreateInstance(type);
+                view.DataContext = data;
+                return view;
             }
-            else
-            {
-                return new TextBlock { Text = "Not Found: " + viewName };
-            }
+
+            return new TextBlock { Text = "Not Found: " + viewName };
         }
 
         public bool Match(object? data)

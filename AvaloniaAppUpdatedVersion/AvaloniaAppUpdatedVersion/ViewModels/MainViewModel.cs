@@ -19,10 +19,11 @@ namespace AvaloniaAppUpdatedVersion.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private PageFactory _pageFactory;
+    private readonly INavigationService _navigationService;
+    private readonly PageFactory _pageFactory;
 
     [ObservableProperty]
-    private bool _IsPaneOpen = true;
+    private bool _IsPaneOpen = false;
 
     [ObservableProperty]
     private PageViewModel _currentPage;
@@ -32,37 +33,45 @@ public partial class MainViewModel : ViewModelBase
     /// </summary>
     public MainViewModel()
     {
-        CurrentPage = new ScaleOverviewPageViewModel();
+       CurrentPage = new ScaleOverviewPageViewModel();
     }
 
 
-    public MainViewModel(PageFactory pageFactory)
+    public MainViewModel(INavigationService navigationService, PageFactory pageFactory)
     {
+        _navigationService = navigationService;
         _pageFactory = pageFactory;
 
-        Initialize();
-        Debug.WriteLine("Tis");
-        Thread.Sleep(10000);
+        _navigationService.OnPageChanged += pageName =>
+        {
+            CurrentPage = _pageFactory.GetPageViewModel(pageName);
+        };
 
-        ToHome();
+        // Start side
+        NavigateToHome();
 
-        
+        // Initialize();
+        //Debug.WriteLine("Tis");
+        // Thread.Sleep(10000);
+
+
+
     }
 
-    private async void Initialize()
-    {
-        var service = new APIService();
-        string token = await service.Authenticate("wasteworker", "verysecretpassword");
-    }
+    //private async void Initialize()
+    //{
+    // var service = new APIService();
+    //string token = await service.Authenticate("wasteworker", "verysecretpassword");
+    //}
 
     [RelayCommand]
-    private void ToScale1() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Scale1);
+    public void NavigateToHome() => _navigationService.NavigateTo(ApplicationPageNames.Home);
 
     [RelayCommand]
-    private void ToHome() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Home);
+    public void NavigateToScale1() => _navigationService.NavigateTo(ApplicationPageNames.Scale1);
 
     [RelayCommand]
-    private void ToScaleOverview() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.ScaleOverview);
+    public void NavigateToScaleOverview() => _navigationService.NavigateTo(ApplicationPageNames.ScaleOverview);
 
     [ObservableProperty]
     private ListItemTemplate? _selectedItem;  
@@ -74,7 +83,7 @@ partial void OnSelectedItemChanged(ListItemTemplate? value)
             // Map the selected item's label to the corresponding ApplicationPageNames enum value
             if (Enum.TryParse<ApplicationPageNames>(value.Label, out var pageName))
             {
-                CurrentPage = _pageFactory.GetPageViewModel(pageName);
+                _navigationService.NavigateTo(pageName);
             }
             else
             {
@@ -86,9 +95,8 @@ partial void OnSelectedItemChanged(ListItemTemplate? value)
     public ObservableCollection<ListItemTemplate> Items { get; } =
     [
         new ListItemTemplate(typeof(HomePageViewModel), "HomeRegular"),
-        new ListItemTemplate(typeof(StatusMonitorPageViewModel), "NetworkCheckRegular"),
         new ListItemTemplate(typeof(UploadFirmwarePageViewModel), "ArrowUploadRegular"),
-        new ListItemTemplate(typeof(ScaleOverviewPageViewModel), "GridRegular"),
+        new ListItemTemplate(typeof(ScaleOverviewPageViewModel), "NetworkCheckRegular"),
     ];
 
     [RelayCommand]

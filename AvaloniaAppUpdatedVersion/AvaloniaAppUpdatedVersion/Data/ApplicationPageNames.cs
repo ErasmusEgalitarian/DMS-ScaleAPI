@@ -8,9 +8,9 @@ namespace AvaloniaAppUpdatedVersion.Data
 {
     public enum ApplicationPageNames
     {
+        Unknown,
         Home,
         Scale1,
-        StatusMonitor,
         UploadFirmware,
         ScaleOverview
     }

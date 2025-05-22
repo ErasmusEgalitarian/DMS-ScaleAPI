@@ -12,28 +12,41 @@
 		<vm:Scale1PageViewModel />
 	</Design.DataContext>
 
-	<ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto"
-					Background="#0A1843">
-		<StackPanel Margin="20" Spacing="10">
-			<TextBlock Text="Scale 1" FontSize="50" FontWeight="Bold" TextAlignment="Center" />
-			<Border Background="DarkGreen" Width="150" Height="110" CornerRadius="30">
-			<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="80" Height="80" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-			</Border>
+	<Border Background="#0A1843">
+		
+	<StackPanel Margin="20" Spacing="10">
 			
+			<StackPanel Orientation="Horizontal" Spacing="20">
+				<Button CornerRadius="15" Height="50" Width="100" Background="#0E6BA8" VerticalAlignment="Center"
+						Command="{Binding ToScaleOverviewCommand}">
+					<Path Data="{StaticResource ArrowLeftRegular}" Fill="White" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Button>
+				<TextBlock Text="Scale 1" FontSize="50" FontWeight="Bold" VerticalAlignment="Center" />
+				<Border Background="DarkGreen" Width="120" Height="60" CornerRadius="30" HorizontalAlignment="Center">
+					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="50" Height="50" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Border>
+				<TextBlock Text="Firmware Version:" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0"/>
+				<TextBlock Text="{Binding Version}" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0" />
+				<TextBlock Text="Status Up/Down:" FontSize="25"  VerticalAlignment="Center" Margin="100 0 0 0" />
+				<TextBlock Text="{Binding Status}" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0" />
+			</StackPanel>
+
 			<Grid Name="MainGrid"
-				  ShowGridLines="True"
+				  ShowGridLines="False"
 				  Margin="100"
 				  Background="#0A1843"
 				  RowDefinitions="*, *"
-				  ColumnDefinitions="*, *">
+				  ColumnDefinitions="*, 4*">
 
-				<Border Grid.Column="0" Grid.Row="0" Background="DarkGreen" Width="150" Height="110" CornerRadius="30"/>
-				<Border Grid.Column="1" Grid.Row="0" Background="DarkGreen" Width="150" Height="110" CornerRadius="30"/>
+				<TextBlock Grid.Column="0" Grid.Row="0"  Text="Version Log" FontSize="25" HorizontalAlignment="Center" />
+				<TextBlock Grid.Column="1" Grid.Row="0"   Text="Status Graph" FontSize="25" Margin="50 0 0 0" />
+				<Border Grid.Column="0" Grid.Row="1" Background="#070B2A" Height="500" CornerRadius="30" Margin="20 10 20 10" />
+				<ScrollViewer Grid.Column="0" Grid.Row="1" Height="500" CornerRadius="30" Margin="20 10 20 10" />
+				<Border Grid.Column="1" Grid.Row="1" Background="#070B2A"  Height="500" CornerRadius="30" Margin="20 10 20 10" />
 
 			</Grid>
 
 		</StackPanel>
-	</ScrollViewer>
+		</Border>
 	
 </UserControl>

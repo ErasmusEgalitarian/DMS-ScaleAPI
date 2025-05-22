@@ -3,8 +3,83 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
              x:Class="AvaloniaAppUpdatedVersion.Views.HomePageView"
-	         x:DataType="vm:MainViewModel">
-	Welcome to The Home Page!
+	         x:DataType="vm:HomePageViewModel">
+	
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:HomePageViewModel />
+	</Design.DataContext>
+
+	<Border Background="#0A1843">
+
+		<StackPanel Margin="20" Spacing="10">
+			<TextBlock Text="EMOS" FontSize="50" FontWeight="Bold" TextAlignment="Center" />
+			<TextBlock Text="The Egalitarian Monitoring Service for monitoring and managing scales issued by The Egalitarian Initiative" FontSize="20" TextAlignment="Center" />
+
+			<Grid Name="MainGrid"
+				  ShowGridLines="False"
+				  Margin="50"
+				  Background="#0A1843"
+				  RowDefinitions="Auto, Auto, Auto"
+				  ColumnDefinitions="*, *">
+
+				<Button Name="ToUploadFirmwarePage"
+						Grid.Column="0"
+						Command="{Binding ToUploadFirmwareCommand}"
+						Background="#0E6BA8"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Height="500"
+						Width="600"
+						Foreground="White"
+						CornerRadius="30">
+					<TextBlock Text="Go To Firmware Upload"
+							   FontSize="40"
+							   FontWeight="Bold"
+							   TextAlignment="Center"
+							   VerticalAlignment="Bottom"
+							   Margin="0 0 0 20"/>
+					
+
+				</Button>
+				<Path Data="{StaticResource ArrowUploadRegular}" Grid.Column="0" Fill="White" Stretch="Uniform" Height="200"
+					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				<Button Name="ToScaleOverviewPage"
+						Grid.Column="1"
+						Command="{Binding ToScaleOverviewCommand}"
+						Background="#0E6BA8"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Height="500"
+						Width="600"
+						Foreground="White"
+						CornerRadius="30">
+					
+					
+					
+					<TextBlock Text="Go To Scale Overview"
+							   FontSize="40"
+							   FontWeight="Bold"
+							   TextAlignment="Center"
+							   VerticalAlignment="Bottom"
+							   Margin="0 0 0 20" />
+				</Button>
+				<Path Data="{StaticResource NetworkCheckRegular}" Grid.Column="1" Fill="White" Stretch="Uniform" Height="200"
+					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+			</Grid>
+
+			<TextBlock Name="StatusText"
+					   Text="With the kindest regards - The members of Egalitarian"
+					   FontSize="16"
+					   HorizontalAlignment="Center"
+					   Margin="0 10 0 0"/>
+
+		</StackPanel>
+
+	</Border>
+	
 </UserControl>

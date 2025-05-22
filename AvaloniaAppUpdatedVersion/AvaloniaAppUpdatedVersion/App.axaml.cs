@@ -27,7 +27,6 @@ public partial class App : Application
         collection.AddSingleton<MainViewModel>();
         collection.AddTransient<Scale1PageViewModel>();
         collection.AddTransient<HomePageViewModel>();
-        collection.AddTransient<StatusMonitorPageViewModel>();
         collection.AddTransient<UploadFirmwarePageViewModel>();
         collection.AddTransient<ScaleOverviewPageViewModel>();
 
@@ -35,13 +34,13 @@ public partial class App : Application
         {
             ApplicationPageNames.Home => x.GetRequiredService<HomePageViewModel>(),
             ApplicationPageNames.Scale1 => x.GetRequiredService<Scale1PageViewModel>(),
-            ApplicationPageNames.StatusMonitor => x.GetRequiredService<StatusMonitorPageViewModel>(),
             ApplicationPageNames.UploadFirmware => x.GetRequiredService<UploadFirmwarePageViewModel>(),
             ApplicationPageNames.ScaleOverview => x.GetRequiredService<ScaleOverviewPageViewModel>(),
             _ => throw new InvalidOperationException(),
         });
 
         collection.AddSingleton<PageFactory>();
+        collection.AddSingleton<INavigationService, NavigationService>();
 
         var services = collection.BuildServiceProvider();
 
