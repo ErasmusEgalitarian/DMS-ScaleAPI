@@ -16,7 +16,7 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
     public partial class ScaleOverviewPageViewModel : PageViewModel
     {
         private readonly INavigationService? _navigationService;
-        private readonly MockAPIService _mockAPIService; // Add an instance of MockAPIService
+        private readonly APIService _APIService; // Add an instance of APIService
 
         [ObservableProperty]
         private string status;
@@ -28,7 +28,7 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
         public ScaleOverviewPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _mockAPIService = new MockAPIService(); // Initialize the MockAPIService instance
+            _APIService = new APIService(); // Initialize the APIService instance
             PageName = ApplicationPageNames.ScaleOverview;
 
             _ = RunScaleStatusCheckerLoop(); // Kør loopet asynkront uden at blokere constructor
@@ -36,21 +36,18 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
 
         private async Task RunScaleStatusCheckerLoop()
         {
-            int callCount = 0;
+            string scaleID = "wasteworker";
             while (PageName == ApplicationPageNames.ScaleOverview)
             {
-                await ExecuteScaleStatusCheck(callCount);
-                callCount++; // Øg tælleren
-                await Task.Delay(2000); // 2 sekunders ventetid
+                await ExecuteScaleStatusCheck(scaleID);
+                await Task.Delay(5000); // 5 sekunders ventetid
             }
         }
 
-        private async Task ExecuteScaleStatusCheck(int callCount)
+        private async Task ExecuteScaleStatusCheck(string scaleID)
         {
-            Status = await _mockAPIService.GetScaleStatus(callCount); // Use the instance of MockAPIService
-            Console.WriteLine($"Status at call {callCount}: {Status}");
-            // Hvis du vil opdatere en ViewModel property:
-            // CurrentStatus = status;
+            Status = await _APIService.GetScaleStatus(scaleID); // Use the instance of APIService
+            Console.WriteLine($"Status at call {scaleID}: {Status}");
         }
 
         partial void OnStatusChanged(string value)

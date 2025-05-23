@@ -50,19 +50,19 @@ public partial class MainViewModel : ViewModelBase
         // Start side
         NavigateToHome();
 
-        // Initialize();
-        //Debug.WriteLine("Tis");
-        // Thread.Sleep(10000);
+        Initialize();
+        Debug.WriteLine("Tis");
+        Thread.Sleep(10000);
 
 
 
     }
 
-    //private async void Initialize()
-    //{
-    // var service = new APIService();
-    //string token = await service.Authenticate("wasteworker", "verysecretpassword");
-    //}
+    private async void Initialize()
+    {
+    var service = new APIService();
+    service.Authenticate("wasteworker", "verysecretpassword");
+    }
 
     [RelayCommand]
     public void NavigateToHome() => _navigationService.NavigateTo(ApplicationPageNames.Home);
