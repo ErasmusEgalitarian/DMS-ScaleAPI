@@ -95,7 +95,7 @@ namespace AvaloniaAppUpdatedVersion.ViewModels.Charts
 
         private async Task InitializeAsync()
         {
-            await Task.Delay(2000); // Wait for 1 second to ensure the API is ready
+            await Task.Delay(2000); // Wait for 2 seconds to ensure the API is ready
             string scaleID = "wasteworker";
             await ExecuteScaleStatusCheck(scaleID); // én gang først
 
@@ -151,7 +151,7 @@ namespace AvaloniaAppUpdatedVersion.ViewModels.Charts
             {
                 "Up" => 1,
                 "Down" => 0,
-                _ => 1 // unknown status, default to 0
+                _ => 0 // unknown status, default to 0
             };
 
             Console.WriteLine($"StatusBinary sat til: {StatusBinary}");
@@ -163,9 +163,6 @@ namespace AvaloniaAppUpdatedVersion.ViewModels.Charts
 
         private async Task ReadData()
         {
-            // to keep this sample simple, we run the next infinite loop 
-            // in a real application you should stop the loop/task when the view is disposed 
-
             while (IsReading)
             {
                 await Task.Delay(5000);

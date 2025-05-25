@@ -47,7 +47,7 @@ public partial class App : Application
 
         var services = collection.BuildServiceProvider();
 
-        // START REALTIME GRAF
+        // START REALTIME GRAPH
         var RealTimeChart = services.GetRequiredService<RealTimeChartViewModel>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
