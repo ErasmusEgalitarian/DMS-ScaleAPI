@@ -10,6 +10,7 @@ using Microsoft.VisualBasic;
 using AvaloniaAppUpdatedVersion.Factories;
 using System;
 using AvaloniaAppUpdatedVersion.Data;
+using AvaloniaAppUpdatedVersion.ViewModels.Charts;
 
 namespace AvaloniaAppUpdatedVersion;
 
@@ -25,6 +26,8 @@ public partial class App : Application
 
         var collection = new ServiceCollection();
         collection.AddSingleton<MainViewModel>();
+        collection.AddSingleton<RealTimeChartViewModel>();
+        collection.AddSingleton<APIService>();
         collection.AddTransient<Scale1PageViewModel>();
         collection.AddTransient<HomePageViewModel>();
         collection.AddTransient<UploadFirmwarePageViewModel>();
@@ -43,6 +46,9 @@ public partial class App : Application
         collection.AddSingleton<INavigationService, NavigationService>();
 
         var services = collection.BuildServiceProvider();
+
+        // START REALTIME GRAF
+        var RealTimeChart = services.GetRequiredService<RealTimeChartViewModel>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

@@ -9,80 +9,50 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
+using AvaloniaAppUpdatedVersion.ViewModels.Charts;
+using System.Threading;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels
 {
     public partial class Scale1PageViewModel : PageViewModel
     {
         private readonly INavigationService? _navigationService;
-        private readonly APIService _APIService; // Add an instance of APIService
 
-        [ObservableProperty]
-        private string version;
+        public RealTimeChartViewModel RealTimeChart { get; }
 
-        [ObservableProperty]
-        private string status;
+        public string Version => RealTimeChart.Version;
 
-        [ObservableProperty]
-        private string statusColor;
+        public string Status => RealTimeChart.Status;
+
+        public string StatusColor => Status switch
+        {
+            "Up" => "DarkGreen",
+            "Down" => "DarkRed",
+            _ => "DarkRed"
+        };
 
 
         // Runtime constructor
-        public Scale1PageViewModel(INavigationService navigationService)
+        public Scale1PageViewModel(INavigationService navigationService, RealTimeChartViewModel chart)
         {
             _navigationService = navigationService;
-            _APIService = new APIService(); // Initialize the APIService instance
             PageName = ApplicationPageNames.Scale1;
+            RealTimeChart = chart;
 
-            _ = RunScaleVersionCheckerLoop(); // Kør loopet asynkront uden at blokere constructor
-            _ = RunScaleStatusCheckerLoop(); // Kør loopet asynkront uden at blokere constructor
-        }
-
-        private async Task RunScaleVersionCheckerLoop()
-        {
-            string scaleID = "wasteworker";
-
-            while (PageName == ApplicationPageNames.Scale1)
+            // Hvis du vil opdatere UI automatisk ved ændringer:
+            RealTimeChart.PropertyChanged += (_, e) =>
             {
-                await ExecuteScaleVersionCheck(scaleID);
-                //callCount++; // Øg tælleren
-                await Task.Delay(10000); // 10 sekunders ventetid
-            }
-        }
+                if (e.PropertyName == nameof(RealTimeChart.Status))
+                {
+                    OnPropertyChanged(nameof(Status));
+                    OnPropertyChanged(nameof(StatusColor));
+                }
 
-        private async Task ExecuteScaleVersionCheck(string scaleID)
-        {
-            Version = await _APIService.GetScaleVersion(scaleID); // Use the instance of APIService
-            Console.WriteLine($"Version at call {scaleID}: {Version}");
-
-    
-        }
-
-        private async Task RunScaleStatusCheckerLoop()
-        {
-            string scaleID = "wasteworker";
-            while (PageName == ApplicationPageNames.Scale1)
-            {
-                await ExecuteScaleStatusCheck(scaleID);
-                //callCount++; // Øg tælleren
-                await Task.Delay(5000); // 5 sekunders ventetid
-            }
-        }
-
-        private async Task ExecuteScaleStatusCheck(string scaleID)
-        {
-            Status = await _APIService.GetScaleStatus(scaleID); // Use the instance of APIService
-            Console.WriteLine($"Status at call {scaleID}: {Status}");
-           
-        }
-
-        partial void OnStatusChanged(string value)
-        {
-            StatusColor = value switch
-            {
-                "Up" => "DarkGreen",
-                "Down" => "DarkRed",
-                _ => "DarkRed"
+                else if (e.PropertyName == nameof(RealTimeChart.Version))
+                {
+                    OnPropertyChanged(nameof(Version));
+                
+                }
             };
         }
 
@@ -92,10 +62,10 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
             if (!Design.IsDesignMode)
                 throw new InvalidOperationException("This constructor is only for design-time.");
 
-            PageName = ApplicationPageNames.ScaleOverview;
-            Version = "1.0.0"; // Example version
-            Status = "Up"; // Example status
-            StatusColor = "DarkGreen";
+            PageName = ApplicationPageNames.Scale1;
+        //    Version = "1.0.0"; // Example version
+        //    Status = "Up"; // Example status
+        //    StatusColor = "DarkGreen";
         }
 
         [RelayCommand]

@@ -15,7 +15,8 @@ namespace AvaloniaAppUpdatedVersion.Services
         private static string domain = "http://vistimalik.com:5296"; 
 
         // Method to get the scale version from database via the API
-        public async void Authenticate(string username, string password)
+
+        public async Task Authenticate(string username, string password)
         {
             //var postData = new StringContent("{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}", Encoding.UTF8, "application/JSON");
             var postDict = new Dictionary<string, string> { { "username", username }, { "password", password } };

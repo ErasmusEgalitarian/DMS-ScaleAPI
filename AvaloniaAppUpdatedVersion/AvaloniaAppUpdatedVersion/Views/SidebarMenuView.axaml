@@ -4,8 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
              mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
-			 Width="1400" Height="800"
-			 MinWidth="1400" MinHeight="800"
              x:Class="AvaloniaAppUpdatedVersion.Views.SidebarMenuView"
 	         x:DataType="vm:MainViewModel">
 
@@ -20,8 +18,8 @@
 		OpenPaneLength="300"
 		CompactPaneLength="50"
 		DisplayMode="CompactInline"
-		Background="#0A1843"
-		PaneBackground="#0A1843">
+		Background="#070B2A"
+		PaneBackground="#070B2A">
 		<SplitView.Pane>
 			<StackPanel Spacing="5"
 						Margin="5">
@@ -46,7 +44,7 @@
 			</StackPanel>
 		</SplitView.Pane>
 		<SplitView.Content>
-			<Border CornerRadius="5"
+			<Border CornerRadius="30"
 					Background="#070B2A">
 			<TransitioningContentControl Content="{Binding CurrentPage}"/>
 			</Border>

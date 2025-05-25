@@ -30,46 +30,54 @@
 						Grid.Column="0"
 						Command="{Binding ToUploadFirmwareCommand}"
 						Background="#0E6BA8"
+						BorderBrush="White" BorderThickness="4"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						Height="500"
 						Width="600"
 						Foreground="White"
 						CornerRadius="30">
-					<TextBlock Text="Go To Firmware Upload"
+
+					<StackPanel Margin="100" Spacing="100">
+
+					<Path Data="{StaticResource ArrowUploadRegular}" Grid.Column="0" Fill="White" Stretch="Uniform" Height="200"
+					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					
+					<TextBlock Text="Firmware Upload"
 							   FontSize="40"
 							   FontWeight="Bold"
 							   TextAlignment="Center"
 							   VerticalAlignment="Bottom"
 							   Margin="0 0 0 20"/>
-					
 
+					</StackPanel>
 				</Button>
-				<Path Data="{StaticResource ArrowUploadRegular}" Grid.Column="0" Fill="White" Stretch="Uniform" Height="200"
-					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				
 				<Button Name="ToScaleOverviewPage"
 						Grid.Column="1"
 						Command="{Binding ToScaleOverviewCommand}"
 						Background="#0E6BA8"
+						BorderBrush="White" BorderThickness="4"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						Height="500"
 						Width="600"
 						Foreground="White"
 						CornerRadius="30">
+
+					<StackPanel Margin="100" Spacing="100">
+
+						<Path Data="{StaticResource NetworkCheckRegular}" Grid.Column="1" Fill="White" Stretch="Uniform" Height="200"
+					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 					
-					
-					
-					<TextBlock Text="Go To Scale Overview"
+					<TextBlock Text="Scale Overview"
 							   FontSize="40"
 							   FontWeight="Bold"
 							   TextAlignment="Center"
 							   VerticalAlignment="Bottom"
 							   Margin="0 0 0 20" />
+					</StackPanel>
 				</Button>
-				<Path Data="{StaticResource NetworkCheckRegular}" Grid.Column="1" Fill="White" Stretch="Uniform" Height="200"
-					  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
 			</Grid>
 
 			<TextBlock Name="StatusText"

@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaAppUpdatedVersion.ViewModels"
+			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
              x:Class="AvaloniaAppUpdatedVersion.Views.Scale1PageView"
 			 x:DataType="vm:Scale1PageViewModel">
@@ -15,35 +16,85 @@
 	<Border Background="#0A1843">
 		
 	<StackPanel Margin="20" Spacing="10">
-			
-			<StackPanel Orientation="Horizontal" Spacing="20">
-				<Button CornerRadius="15" Height="50" Width="100" Background="#0E6BA8" VerticalAlignment="Center"
+
+		<Grid Name="TopGrid"
+			  ShowGridLines="False"
+			  Margin="20 10 0 0"
+			  HorizontalAlignment="Left" VerticalAlignment="Top"
+			  Background="#0A1843"
+			  RowDefinitions="*, *"
+			  ColumnDefinitions="0.4*, *, .5*, 1.2*, 1.4*">
+				<Button Grid.Column="0" Margin="0 0 20 0" CornerRadius="15" Height="50" Width="100" Background="#0E6BA8" VerticalAlignment="Center"
 						Command="{Binding ToScaleOverviewCommand}">
-					<Path Data="{StaticResource ArrowLeftRegular}" Fill="White" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Path Data="{StaticResource ArrowLeftRegular}" Fill="White" Stretch="Uniform"
+						  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</Button>
-				<TextBlock Text="Scale 1" FontSize="50" FontWeight="Bold" VerticalAlignment="Center" />
-				<Border Background="{Binding StatusColor}" Width="120" Height="60" CornerRadius="30" HorizontalAlignment="Center">
-					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="50" Height="50" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				<TextBlock Grid.Column="1" Margin="0 0 20 0" Text="Scale 1" FontSize="50" FontWeight="Bold" VerticalAlignment="Center" />
+				<Border Grid.Column="2" Background="{Binding StatusColor}" Margin="0 0 20 0" Width="100" Height="50" CornerRadius="30"
+						HorizontalAlignment="Center" BorderBrush="White" BorderThickness="3">
+					<Path Data="{StaticResource ScalesRegular}" Fill="Black" Width="30" Height="30" Stretch="Uniform"
+						  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</Border>
-				<TextBlock Text="Firmware Version:" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0"/>
-				<TextBlock Text="{Binding Version}" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0" />
-				<TextBlock Text="Status Up/Down:" FontSize="25"  VerticalAlignment="Center" Margin="100 0 0 0" />
-				<TextBlock Text="{Binding Status}" FontSize="25"  VerticalAlignment="Center" Margin="10 0 0 0" />
-			</StackPanel>
+				<Border Grid.Column="3" Background="#0A1843" Margin="0 0 20 0" Width="300" Height="50" CornerRadius="30"
+						HorizontalAlignment="Center" BorderBrush="White" BorderThickness="3">
+					<StackPanel Orientation="Horizontal" Margin="10 0 10 0" Spacing="15">
+						<TextBlock Text="Firmware Version:" FontSize="20"  VerticalAlignment="Center" Margin="10 0 10 0"/>
+						<TextBlock Text="{Binding Version}" FontSize="20"  VerticalAlignment="Center" Margin="10 0 10 0" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="4" Background="#0A1843" Margin="0 0 20 0" Width="300" Height="50" CornerRadius="30"
+						HorizontalAlignment="Center" BorderBrush="White" BorderThickness="3">
+					<StackPanel Orientation="Horizontal" Margin="10 0 10 0" Spacing="15">
+						<TextBlock Text="Status Up/Down:" FontSize="20"  VerticalAlignment="Center" Margin="10 0 10 0" />
+						<TextBlock Text="{Binding Status}" FontSize="20"  VerticalAlignment="Center" Margin="10 0 10 0" />
+					</StackPanel>
+				</Border>
+
+		</Grid>
 
 			<Grid Name="MainGrid"
 				  ShowGridLines="False"
-				  Margin="100"
+				  Margin="50"
 				  Background="#0A1843"
 				  RowDefinitions="*, *"
 				  ColumnDefinitions="*, 4*">
 
 				<TextBlock Grid.Column="0" Grid.Row="0"  Text="Version Log" FontSize="25" HorizontalAlignment="Center" />
-				<TextBlock Grid.Column="1" Grid.Row="0"   Text="Status Graph" FontSize="25" Margin="50 0 0 0" />
-				<Border Grid.Column="0" Grid.Row="1" Background="#070B2A" Height="500" CornerRadius="30" Margin="20 10 20 10" />
-				<ScrollViewer Grid.Column="0" Grid.Row="1" Height="500" CornerRadius="30" Margin="20 10 20 10" />
-				<Border Grid.Column="1" Grid.Row="1" Background="#070B2A"  Height="500" CornerRadius="30" Margin="20 10 20 10" />
+				<TextBlock Grid.Column="1" Grid.Row="0"  Text="Status - Real Time" FontSize="25" Margin="50 0 0 0" />
+				<Border Grid.Column="0" Grid.Row="1" Background="#070B2A" Height="500" CornerRadius="30" 
+						Margin="20 10 20 10" BorderBrush="White" BorderThickness="4">
+					<ScrollViewer Grid.Column="0" Grid.Row="1" Height="470" Margin="10 10 10 10"
+								  Background="#070B2A">
+						<ItemsControl DataContext="{Binding RealTimeChart}" ItemsSource="{Binding VersionLog}"
+									  Height="470" Background="#070B2A">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding VersionLabel}" FontSize="16" Margin="5" TextAlignment="Center"/>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+				</Border>
+				<Border Grid.Column="1" Grid.Row="1" Background="#070B2A"  Height="500" CornerRadius="30" 
+						Margin="20 10 20 10" BorderBrush="White" BorderThickness="4">
 
+				<lvc:CartesianChart Grid.Column="1" Grid.Row="1"
+					
+					DataContext="{Binding RealTimeChart}"
+					SyncContext="{Binding Sync}"
+					Series="{Binding Series}"
+					XAxes="{Binding XAxes}"
+					YAxes="{Binding YAxes}"
+					LegendPosition="Top"
+					LegendTextSize="20"
+					LegendTextPaint="{Binding LegendTextPaint}"
+					Background="#070B2A"
+					Height="470"
+					CornerRadius="30"
+					Margin="15"
+					BorderBrush="Red">
+				</lvc:CartesianChart>
+				</Border>
 			</Grid>
 
 		</StackPanel>

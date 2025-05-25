@@ -10,53 +10,39 @@ using AvaloniaAppUpdatedVersion.Data;
 using AvaloniaAppUpdatedVersion.Factories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Avalonia.Controls;
+using AvaloniaAppUpdatedVersion.ViewModels.Charts;
 
 namespace AvaloniaAppUpdatedVersion.ViewModels
 {
     public partial class ScaleOverviewPageViewModel : PageViewModel
     {
         private readonly INavigationService? _navigationService;
-        private readonly APIService _APIService; // Add an instance of APIService
 
-        [ObservableProperty]
-        private string status;
+        public RealTimeChartViewModel RealTimeChart { get; }
 
-        [ObservableProperty]
-        private string statusColor;
+        public string Status => RealTimeChart.Status;
+
+        public string StatusColor => Status switch
+        {
+            "Up" => "DarkGreen",
+            "Down" => "DarkRed",
+            _ => "DarkRed"
+        };
 
         // Runtime constructor
-        public ScaleOverviewPageViewModel(INavigationService navigationService)
+        public ScaleOverviewPageViewModel(INavigationService navigationService, RealTimeChartViewModel chart)
         {
             _navigationService = navigationService;
-            _APIService = new APIService(); // Initialize the APIService instance
             PageName = ApplicationPageNames.ScaleOverview;
+            RealTimeChart = chart;
 
-            _ = RunScaleStatusCheckerLoop(); // Kør loopet asynkront uden at blokere constructor
-        }
-
-        private async Task RunScaleStatusCheckerLoop()
-        {
-            string scaleID = "wasteworker";
-            while (PageName == ApplicationPageNames.ScaleOverview)
+            RealTimeChart.PropertyChanged += (_, e) =>
             {
-                await ExecuteScaleStatusCheck(scaleID);
-                await Task.Delay(5000); // 5 sekunders ventetid
-            }
-        }
-
-        private async Task ExecuteScaleStatusCheck(string scaleID)
-        {
-            Status = await _APIService.GetScaleStatus(scaleID); // Use the instance of APIService
-            Console.WriteLine($"Status at call {scaleID}: {Status}");
-        }
-
-        partial void OnStatusChanged(string value)
-        {
-            StatusColor = value switch
-            {
-                "Up" => "DarkGreen",
-                "Down" => "DarkRed",
-                _ => "DarkRed"
+                if (e.PropertyName == nameof(RealTimeChart.Status))
+                {
+                    OnPropertyChanged(nameof(Status));
+                    OnPropertyChanged(nameof(StatusColor));
+                }
             };
         }
 
@@ -68,7 +54,7 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
 
             PageName = ApplicationPageNames.ScaleOverview;
 
-            StatusColor = "DarkGreen"; // Default color for design-time example
+           // StatusColor = "DarkGreen"; // Default color for design-time example
         }
 
 

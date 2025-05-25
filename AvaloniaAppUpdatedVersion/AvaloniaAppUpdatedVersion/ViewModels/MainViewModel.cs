@@ -21,6 +21,7 @@ public partial class MainViewModel : ViewModelBase
 {
     private readonly INavigationService _navigationService;
     private readonly PageFactory _pageFactory;
+    private readonly APIService _apiService;
 
     [ObservableProperty]
     private bool _IsPaneOpen = false;
@@ -37,10 +38,11 @@ public partial class MainViewModel : ViewModelBase
     }
 
 
-    public MainViewModel(INavigationService navigationService, PageFactory pageFactory)
+    public MainViewModel(INavigationService navigationService, PageFactory pageFactory, APIService apiService)
     {
         _navigationService = navigationService;
         _pageFactory = pageFactory;
+        _apiService = apiService;
 
         _navigationService.OnPageChanged += pageName =>
         {
@@ -50,18 +52,16 @@ public partial class MainViewModel : ViewModelBase
         // Start side
         NavigateToHome();
 
-        Initialize();
-        Debug.WriteLine("Tis");
-        Thread.Sleep(10000);
+        InitializeAPIAuth();
+        Debug.WriteLine("Test");
 
 
 
     }
 
-    private async void Initialize()
+    private async Task InitializeAPIAuth()
     {
-    var service = new APIService();
-    service.Authenticate("wasteworker", "verysecretpassword");
+        await _apiService.Authenticate("wasteworker", "verysecretpassword");
     }
 
     [RelayCommand]
