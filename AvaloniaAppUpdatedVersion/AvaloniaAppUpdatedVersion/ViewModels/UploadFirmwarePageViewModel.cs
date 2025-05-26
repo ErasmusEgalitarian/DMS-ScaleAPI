@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using AvaloniaAppUpdatedVersion.Data;
@@ -16,6 +17,10 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
     public partial class UploadFirmwarePageViewModel : PageViewModel
     {
         private readonly INavigationService? _navigationService;
+        private readonly APIService _apiService;
+
+        private CancellationTokenSource? _uploadStatusCts;
+
 
         [ObservableProperty]
         private string _selectedFilePath;
@@ -31,8 +36,9 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
         }
 
         // Runtime constructor
-        public UploadFirmwarePageViewModel(INavigationService navigationService)
+        public UploadFirmwarePageViewModel(INavigationService navigationService, APIService apiService)
         {
+            _apiService = apiService;
             _navigationService = navigationService;
             PageName = ApplicationPageNames.UploadFirmware;
         }
@@ -52,9 +58,9 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
             {
                 AllowMultiple = false,
                 Filters =
-        {
-            new FileDialogFilter { Name = "BIN files", Extensions = { "bin" } }
-        }
+                {
+                    new FileDialogFilter { Name = "BIN files", Extensions = { "bin" } }
+                }
             };
 
             var result = await dialog.ShowAsync(parent);
@@ -65,26 +71,42 @@ namespace AvaloniaAppUpdatedVersion.ViewModels
         }
 
         [RelayCommand]
-        public async Task UploadFirmware()
+        public async Task CallUploadFirmware()
         {
             if (string.IsNullOrEmpty(SelectedFilePath)) return;
 
+            // Start animation in background
+            _uploadStatusCts = new CancellationTokenSource();
+            var token = _uploadStatusCts.Token;
+
+            var animationTask = Task.Run(async () =>
+            {
+                string baseText = "Uploading firmware";
+                string[] dots = ["", ".", "..", "..."];
+                int i = 0;
+
+                while (!token.IsCancellationRequested)
+                {
+                    StatusMessage = baseText + dots[i % dots.Length];
+                    i++;
+                    await Task.Delay(500); // Update every 500ms
+                }
+            }, token);
+
+            // Upload itself
+            string result;
             try
             {
-                StatusMessage = "Uploading...";
-                byte[] fileBytes = await File.ReadAllBytesAsync(SelectedFilePath);
-
-                using var httpClient = new HttpClient();
-                var content = new ByteArrayContent(fileBytes);
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-
-                var response = await httpClient.PostAsync("http://vistimalik.com:4242/api/uploadFirmware", content);
-                StatusMessage = response.IsSuccessStatusCode ? "Upload successful!" : "Upload failed.";
+                result = await _apiService.UploadFirmware(SelectedFilePath);
             }
-            catch (Exception ex)
+            finally
             {
-                StatusMessage = $"Error: {ex.Message}";
+                _uploadStatusCts.Cancel(); // Stop animation
+                await animationTask;       // Await for animation to finish nicely
             }
+
+            // Set final status
+            StatusMessage = result;
         }
     }
 }

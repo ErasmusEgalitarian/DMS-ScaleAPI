@@ -51,7 +51,7 @@
 					   Margin="0 50 0 0"/>
 			<Button Name="UploadButton"
 					Grid.Column="1"
-					Command="{Binding UploadFirmwareCommand}"
+					Command="{Binding CallUploadFirmwareCommand}"
 					IsEnabled="{Binding IsUploadEnabled}"
 					Background="#0E6BA8"
 					BorderBrush="White" BorderThickness="4"

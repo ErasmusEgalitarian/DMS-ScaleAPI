@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.IO;
 
 namespace AvaloniaAppUpdatedVersion.Services
 {
     public class APIService
     {
         private static readonly HttpClient client = new HttpClient();
-        private static string domain = "http://vistimalik.com:5296"; 
+        private static string domain = "http://vistimalik.com:5296";
+        private string StatusMessage = "";
 
         // Method to get the scale version from database via the API
 
@@ -47,6 +49,41 @@ namespace AvaloniaAppUpdatedVersion.Services
             var jsonResponseData = JsonSerializer.Deserialize<Dictionary<string, string>>(responseString);
             string status = jsonResponseData["message"];
             return status;
+        }
+
+        public async Task<string> UploadFirmware(string SelectedFilePath)
+        {
+            if (string.IsNullOrEmpty(SelectedFilePath)) return (StatusMessage = "File Path is null or empty"); // Should be redundant, but just in case
+
+            else
+            {
+                try
+                {
+                    byte[] fileBytes = await File.ReadAllBytesAsync(SelectedFilePath);
+
+                    var content = new ByteArrayContent(fileBytes);
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+
+                    var response = await client.PostAsync($"{domain}/api/uploadFirmware", content);
+                    StatusMessage = response.IsSuccessStatusCode ? "Upload successful!" : "Upload failed.";
+                }
+                catch (Exception ex)
+                {
+                    int maxLineLength = 150;
+                    string errorMessage = ex.Message;
+
+                    if (errorMessage.Length > maxLineLength)
+                    {
+                        int breakIndex = errorMessage.LastIndexOf(' ', maxLineLength); // Tries to break line a bit earlier at a space
+                        if (breakIndex == -1) breakIndex = maxLineLength; // If no space found, break at max length
+
+                        errorMessage = errorMessage.Insert(breakIndex, "\n");
+                    }
+
+                    StatusMessage = $"Error: {errorMessage}";
+                }
+                return StatusMessage;
+            }
         }
 
     }
